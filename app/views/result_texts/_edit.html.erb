@@ -5,8 +5,11 @@
       <div class="form-group">
         <%= ff.tiny_mce_editor(:text,
                                value: @result.result_text.tinymce_render(:text),
-                               data: { object_type: 'result_text',
-                                       object_id: @result.result_text.id }) %>
+                               hide_label: false,
+                               data: {
+                                 object_type: 'result_text',
+                                 object_id: @result.result_text.id
+                               }) %>
       </div>
     <% end %><br />
     <div class="align-right">
