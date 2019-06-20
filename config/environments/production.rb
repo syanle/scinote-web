@@ -156,6 +156,12 @@ Rails.application.configure do
   # `config/secrets.yml.key`.
   config.read_encrypted_secrets = true
 
+  # Enable embedding within an <iFrame> from any orign
+  # SECURITY VULNERABILITY!
+  config.action_dispatch.default_headers = {
+    'X-Frame-Options' => 'ALLOWALL'
+  }
+
   # Enable new team on sign up
   new_team_on_signup = ENV['NEW_TEAM_ON_SIGNUP'] || 'true'
   if new_team_on_signup == 'true'
