@@ -1,0 +1,63 @@
+<div class="inline-step">
+  <div class="step-header">
+    <div class="step-collapse">
+      <span class="fas fa-chevron-up"></span>
+    </div>
+    <div class="step-position"><%= step.position + 1 %></div>
+    <div class="step-name">
+      <%= render partial: "shared/inline_editing",
+                 locals: { 
+                    initial_value: step.name,
+                    local_config: {
+                      name: "step_name_#{step.id}",
+                      field_to_udpate: 'name',
+                      params_group: 'step',
+                      path_to_update: update_name_step_path(step.id)
+                    }
+                  } %>    
+    </div>
+    <div class="step-actions fix-block">
+      <span class="fas fa-plus-circle"></span>
+      <span class="fas fa-arrow-up"></span>
+      <span class="fas fa-arrow-down"></span>
+      <span class="fas fa-ellipsis-h"></span>
+    </div>
+  </div>
+  <div class="step-body">
+    <div class="step-description">
+      <%= render partial: "shared/tiny_mce_editor",
+                 locals: { 
+                    object: step,
+                    update_url: update_description_step_path(step.id),
+                    field: :description
+                  } %>
+    </div>
+
+    <% unless step.checklists.blank? then %>
+      <% step.checklists.asc.each do |checklist| %>
+        <strong><%= custom_auto_link(checklist.name, team: current_team) %></strong>
+        <% if checklist.checklist_items.empty? %>
+          <%= t("protocols.steps.empty_checklist") %>
+        <% else %>
+          <% ordered_checklist_items(checklist).each do |checklist_item| %>
+            <div class="checkbox" <%= @protocol.in_module? ? "data-action=check-item" : "" %>>
+              <label>
+                <% if @protocol.in_module? %>
+                  <input type="checkbox"
+                         value=""
+                         data-link-url="<%=checklistitem_state_step_path(step) %>"
+                         data-id="<%= checklist_item.id %>" <%= "checked" if checklist_item.checked? %> />
+                <% else %>
+                  <input type="checkbox"
+                         value=""
+                         disabled="disabled" />
+                <% end %>
+                <%= custom_auto_link(checklist_item.text, team: current_team) %>
+              </label>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

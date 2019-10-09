@@ -437,6 +437,8 @@ Rails.application.routes.draw do
                 path: '/comments',
                 only: [:create, :index, :edit, :update, :destroy]
       member do
+        patch 'update_description'
+        put 'update_name'
         post 'checklistitem_state'
         post 'toggle_step_state'
         get 'move_down'

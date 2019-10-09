@@ -4,7 +4,7 @@ class StepsController < ApplicationController
   include StepsActions
   include MarvinJsActions
 
-  before_action :load_vars, only: %i(edit update destroy show toggle_step_state checklistitem_state update_view_state)
+  before_action :load_vars, only: %i(edit update destroy show toggle_step_state checklistitem_state update_view_state update_name update_description)
   before_action :load_vars_nested, only: [:new, :create]
   before_action :convert_table_contents_to_utf8, only: [:create, :update]
 
@@ -26,6 +26,23 @@ class StepsController < ApplicationController
         }
       end
     end
+  end
+
+  def update_name
+    @step.update(name: params[:step][:name])
+  end
+
+  def update_description
+    @step.update(description: params[:step][:description])
+    TinyMceAsset.update_images(@step, params[:tiny_mce_images], current_user)
+    render json: {
+      html: custom_auto_link(
+        @step.tinymce_render(:description),
+        simple_format: false,
+        tags: %w(img),
+        team: current_team
+      )
+    }
   end
 
   def create

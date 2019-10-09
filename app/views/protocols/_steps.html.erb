@@ -21,7 +21,7 @@
 <% end %>
 <div id="steps">
   <% @protocol.steps.order(:position).each do |step| %>
-    <%= render partial: "steps/step.html.erb", locals: { step: step } %>
+    <%= render partial: "steps/inline_step.html.erb", locals: { step: step } %>
   <% end %>
 </div>
 <% if can_manage_protocol_in_module?(@protocol) || can_manage_protocol_in_repository?(@protocol) %>
