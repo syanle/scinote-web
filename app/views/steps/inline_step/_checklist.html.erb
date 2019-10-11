@@ -1,0 +1,53 @@
+<div class="checklist" 
+     data-checklist-id="<%= checklist.id %>"
+     data-checklist-reorder-url="<%= reorder_step_checklist_checklist_items_path(step, checklist) %>"
+>
+  <div class="checklist-header">
+    <div class="checklist-name">
+      <%= render partial: "shared/inline_editing",
+                 locals: { 
+                    initial_value: checklist.name,
+                    local_config: {
+                      name: "checklist_name_#{checklist.id}",
+                      field_to_udpate: 'name',
+                      params_group: 'checklist',
+                      path_to_update: step_checklist_path(step,checklist)
+                    }
+                  } %>   
+    </div>
+    <div class="checklist-actions">
+      <span class="fas fa-arrow-up"></span>
+      <span class="fas fa-arrow-down"></span>
+      <span class="fas fa-pen edit-switcher"></span>
+      <span class="fas fa-eye edit-switcher"></span>
+      <span class="fas fa-trash"></span>
+    </div>
+  </div>
+
+  <% if checklist.checklist_items.empty? %>
+    <%= t("protocols.steps.empty_checklist") %>
+  <% else %>
+    <ul class="checklist-items">
+    <% ordered_checklist_items(checklist).each do |checklist_item| %>
+      <li class="checklist-item"
+          data-checklist-item-id="<%= checklist_item.id %>"
+      >
+        <div class="checklist-checkbox">
+          <div class="custom-checkbox">
+            <input type="checkbox"
+              class="simple-checkbox"
+              value=""
+              data-link-url="<%=checklistitem_state_step_path(step) %>"
+              <%= "checked" if checklist_item.checked? %> />
+            <span class="checkbox-label"></span>
+          </div>
+          <span class="fas fa-grip-horizontal"></span>
+        </div>
+        <div class="checklist-item-name">
+          <%= custom_auto_link(checklist_item.text, simple_format: false, team: current_team) %>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% end %>
+</div>

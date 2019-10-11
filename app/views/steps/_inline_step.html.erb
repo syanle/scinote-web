@@ -32,32 +32,17 @@
                     field: :description
                   } %>
     </div>
-
-    <% unless step.checklists.blank? then %>
-      <% step.checklists.asc.each do |checklist| %>
-        <strong><%= custom_auto_link(checklist.name, team: current_team) %></strong>
-        <% if checklist.checklist_items.empty? %>
-          <%= t("protocols.steps.empty_checklist") %>
-        <% else %>
-          <% ordered_checklist_items(checklist).each do |checklist_item| %>
-            <div class="checkbox" <%= @protocol.in_module? ? "data-action=check-item" : "" %>>
-              <label>
-                <% if @protocol.in_module? %>
-                  <input type="checkbox"
-                         value=""
-                         data-link-url="<%=checklistitem_state_step_path(step) %>"
-                         data-id="<%= checklist_item.id %>" <%= "checked" if checklist_item.checked? %> />
-                <% else %>
-                  <input type="checkbox"
-                         value=""
-                         disabled="disabled" />
-                <% end %>
-                <%= custom_auto_link(checklist_item.text, team: current_team) %>
-              </label>
-            </div>
-          <% end %>
+    <div class="step-checklists"
+         data-reorder-url="<%= reorder_step_checklists_path(step.id) %>"
+    >
+      <% if step.checklists.any? %>
+        <% step.checklists.order(:position).each do |checklist| %>
+          <%= render partial: 'steps/inline_step/checklist', locals: {
+            checklist: checklist,
+            step: step
+        } %>
         <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>

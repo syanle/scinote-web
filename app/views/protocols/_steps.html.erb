@@ -19,7 +19,7 @@
     </div>
   </div>
 <% end %>
-<div id="steps">
+<div id="steps" class="steps-container">
   <% @protocol.steps.order(:position).each do |step| %>
     <%= render partial: "steps/inline_step.html.erb", locals: { step: step } %>
   <% end %>

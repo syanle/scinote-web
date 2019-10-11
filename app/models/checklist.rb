@@ -59,4 +59,10 @@ class Checklist < ApplicationRecord
         .offset((page - 1) * Constants::SEARCH_LIMIT)
     end
   end
+
+  def self.reorder_checklists(checklists)
+    checklists.each_with_index do |checklist, position|
+      find(checklist).update(position: position)
+    end
+  end
 end

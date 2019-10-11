@@ -436,6 +436,17 @@ Rails.application.routes.draw do
       resources :step_comments,
                 path: '/comments',
                 only: [:create, :index, :edit, :update, :destroy]
+
+      resources :checklists, only: [:create, :update, :destroy] do
+        resources :checklist_items, only: [:create, :update, :destroy] do
+          collection do
+            post :reorder
+          end
+        end
+        collection do
+          post :reorder
+        end
+      end
       member do
         patch 'update_description'
         put 'update_name'
@@ -444,6 +455,8 @@ Rails.application.routes.draw do
         get 'move_down'
         get 'move_up'
         post 'update_view_state'
+
+
       end
     end
 

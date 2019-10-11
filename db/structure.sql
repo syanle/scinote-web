@@ -293,7 +293,8 @@ CREATE TABLE public.checklists (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     created_by_id bigint,
-    last_modified_by_id bigint
+    last_modified_by_id bigint,
+    "position" integer
 );
 
 
@@ -6498,6 +6499,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190830141257'),
 ('20190910125740'),
 ('20191001133557'),
-('20191009146101');
+('20191009146101'),
+('20191011164044');
 
 

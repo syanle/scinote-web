@@ -16,4 +16,10 @@ class ChecklistItem < ApplicationRecord
              foreign_key: 'last_modified_by_id',
              class_name: 'User',
              optional: true
+
+  def self.reorder_checklist_items(checklist_items)
+    checklist_items.each_with_index do |checklist_item, position|
+      find(checklist_item).update(position: position)
+    end
+  end
 end

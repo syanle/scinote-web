@@ -62,7 +62,10 @@
     }
   }
 
+  // Step body
   .step-body {
+    display: flex;
+    flex-direction: column;
     padding: 10px 20px;
 
     .step-description {
@@ -74,5 +77,131 @@
         margin-bottom: 0;
       }
     }
+
+
+    // Step checklist
+    .step-checklists {
+      .checklist {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+
+        .checklist-header {
+          align-items: center;
+          display: flex;
+          min-height: 30px;
+          width: 100%;
+        }
+
+        .checklist-name {
+          flex-grow: 1;
+          font-size: 14px;
+          font-weight: bold;
+          max-width: calc(100% - 160px);
+        }
+
+        .checklist-actions {
+          //display: none;
+          margin-left: 10px;
+          opacity: 0.7;
+          text-align: right;
+          width: 160px;
+
+          .fas {
+            cursor: pointer;
+            font-size: 14px;
+            padding: 5px 12px;
+          }
+
+          .fa-eye {
+            display: none;
+          }
+        }
+
+        .checklist-items {
+          margin-bottom: 0;
+          padding-inline-start: 10px;
+        }
+
+        .checklist-item {
+          align-items: center;
+          background: $color-white;
+          border-radius: 5px;
+          box-shadow: 0;
+          display: flex;
+          list-style-type: none;
+          margin: 5px 0px;
+          min-height: 30px;
+          padding: 5px 10px;
+          transition: $md-transaction;
+          max-width: 100%;
+
+          .fa-grip-horizontal {
+            cursor: pointer;
+            display: none;
+            line-height: 20px;
+            opacity: 0.7;
+          }
+
+          .checklist-checkbox {
+            width: 40px;
+          }
+
+          .checklist-item-name {
+            max-width: calc(100% - 40px);
+          }
+        }
+
+        &:nth-child(1){
+          .checklist-actions {
+            .fa-arrow-up {
+              display: none;
+            }
+          }
+        }
+
+        &:nth-last-child(1){
+          .checklist-actions {
+            .fa-arrow-down {
+              display: none;
+            }
+          }
+        }
+
+        &:hover {
+          .checklist-actions {
+            display: block;
+          }
+        }
+
+        &.edit-mode {
+          .checklist-actions {
+            .fa-eye {
+              display: inline-block;
+            }
+
+            .fa-pen {
+              display: none
+            }
+          }
+
+
+          .checklist-item {
+            box-shadow: $md-shadow;
+
+            .custom-checkbox {
+              display: none;
+            }
+
+            .fa-grip-horizontal {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+
+    // Step tables
+
   }
 }
