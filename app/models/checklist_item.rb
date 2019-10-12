@@ -22,4 +22,13 @@ class ChecklistItem < ApplicationRecord
       find(checklist_item).update(position: position)
     end
   end
+
+  def self.add_item(checklist, text, user)
+    position = checklist.checklist_items.count + 1
+    create(
+      text: text,
+      created_by_id: user.id,
+      checklist_id: checklist.id
+    )
+  end
 end

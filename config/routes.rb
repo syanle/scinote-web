@@ -442,6 +442,10 @@ Rails.application.routes.draw do
           collection do
             post :reorder
           end
+
+          member do
+            post :checklist_item_state
+          end
         end
         collection do
           post :reorder

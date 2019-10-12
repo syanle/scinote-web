@@ -1,0 +1,25 @@
+<li class="checklist-item"
+    data-checklist-item-id="<%= checklist_item.id %>"
+    data-checklist-update-url="<%= step_checklist_checklist_item_path(step, checklist, checklist_item) %>"
+>
+  <div class="checklist-checkbox">
+    <div class="custom-checkbox">
+      <input type="checkbox"
+             class="simple-checkbox"
+             value=""
+             data-update-url="<%= checklist_item_state_step_checklist_checklist_item_path(step, checklist, checklist_item) %>"
+             <%= "checked" if checklist_item.checked? %> />
+      <span class="checkbox-label"></span>
+    </div>
+    <span class="fas fa-grip-horizontal"></span>
+  </div>
+  <div class="checklist-item-name">
+    <span class="view-name">
+      <%= custom_auto_link(checklist_item.text, simple_format: false, team: current_team) %>
+    </span>
+    <textarea class="edit-name smart-text-area"><%= checklist_item.text %></textarea>
+  </div>
+  <div class="checklist-delete">
+    <span class="fas fa-times"></span>
+  </div>
+</li>

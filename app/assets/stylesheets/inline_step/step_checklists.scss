@@ -5,80 +5,7 @@
 @import "mixins";
 
 .inline-step {
-  border: 1px solid $color-gainsboro;
-  border-radius: 3px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 15px;
-  width: 100%;
-
-  .step-header {
-    align-items: center;
-    border-bottom: 1px solid $color-gainsboro;
-    display: flex;
-    min-height: 38px;
-
-    .fix-block {
-      flex-shrink: 0;
-    }
-
-    .step-collapse {
-      font-size: 14px;
-      text-align: center;
-      min-width: 30px;
-
-      .fas {
-        cursor: pointer;
-        font-size: 14px;
-      }
-    }
-
-    .step-position {
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-      min-width: 38px;
-    }
-
-    .step-name {
-      flex-grow: 1;
-      max-width: calc(100% - 250px);
-      padding: 0 10px;
-
-      .view-mode, input {
-        font-size: 16px;
-        font-weight: bold;
-      }
-    }
-
-    .step-actions {
-      margin: 0 12px;
-
-      .fas {
-        cursor: pointer;
-        font-size: 14px;
-        margin: 0 12px;
-      }
-    }
-  }
-
-  // Step body
   .step-body {
-    display: flex;
-    flex-direction: column;
-    padding: 10px 20px;
-
-    .step-description {
-      padding: 10px 0 5px;
-      position: relative;
-      width: 100%;
-
-      .form-group {
-        margin-bottom: 0;
-      }
-    }
-
-
     // Step checklist
     .step-checklists {
       .checklist {
@@ -94,23 +21,23 @@
         }
 
         .checklist-name {
-          flex-grow: 1;
+          flex-basis:  calc(100% - 170px);
           font-size: 14px;
           font-weight: bold;
-          max-width: calc(100% - 160px);
+          max-width: calc(100% - 170px);
         }
 
         .checklist-actions {
-          //display: none;
+          display: none;
+          flex-basis: 160px;
           margin-left: 10px;
           opacity: 0.7;
           text-align: right;
-          width: 160px;
 
           .fas {
             cursor: pointer;
             font-size: 14px;
-            padding: 5px 12px;
+            padding: 5px 10px;
           }
 
           .fa-eye {
@@ -145,10 +72,59 @@
 
           .checklist-checkbox {
             width: 40px;
+
+            .custom-checkbox {
+              margin-left: -4px;
+            }
           }
 
           .checklist-item-name {
-            max-width: calc(100% - 40px);
+            width: calc(100% - 80px);
+
+            .view-name {
+              line-height: 18px;
+            }
+
+            .edit-name {
+              border: 0;
+              display: none;
+              height: 18px;
+              line-height: 18px;
+              outline: 0;
+              padding: 0;
+              width: 100%;
+            }
+          }
+
+          .checklist-delete {
+            text-align: right;
+            width: 40px;
+
+            .fa-times {
+              cursor: pointer;
+              display: none;
+              line-height: 20px;
+              opacity: 0.7;
+            }
+          }
+        }
+
+        .new-checklist-item {
+          align-items: center;
+          background: $color-white;
+          border-radius: 5px;
+          box-shadow: $md-shadow;
+          cursor: pointer;
+          display: none;
+          margin: 5px 0px 5px 10px;
+          min-height: 30px;
+          opacity: .7;
+          padding: 5px 10px;
+          max-width: 100%;
+
+          .fas {
+            display: inline-block;
+            width: 40px;
           }
         }
 
@@ -185,6 +161,9 @@
             }
           }
 
+          .new-checklist-item {
+            display: flex;
+          }
 
           .checklist-item {
             box-shadow: $md-shadow;
@@ -196,12 +175,28 @@
             .fa-grip-horizontal {
               display: inline-block;
             }
+
+            .checklist-item-name {
+            width: calc(100% - 80px);
+
+              .edit-name {
+                display: inline-block;
+                width: 100%;
+              }
+
+              .view-name {
+                display: none;
+              }
+            }
+
+            .checklist-delete {
+              .fa-times {
+                display: inline-block;
+              }
+            }
           }
         }
       }
     }
-
-    // Step tables
-
   }
 }

@@ -65,4 +65,14 @@ class Checklist < ApplicationRecord
       find(checklist).update(position: position)
     end
   end
+
+  def self.add_checklist(step, user)
+    position = step.checklists.count + 1
+    create(
+      name: 'New checklist',
+      created_by_id: user.id,
+      step_id: step.id
+    )
+  end
+
 end

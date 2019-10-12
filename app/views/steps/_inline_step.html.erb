@@ -17,7 +17,15 @@
                   } %>    
     </div>
     <div class="step-actions fix-block">
-      <span class="fas fa-plus-circle"></span>
+      <span class="dropdown"> 
+        <a href="#" data-toggle="dropdown" class="add-new-items-handler" id="step_<%= step.id %>_new_items" aria-haspopup="true" aria-expanded="false">
+           <span class="fas fa-plus-circle dropdown-handler"></span>
+        </a>
+        <ul class="dropdown-menu add-new-items" aria-labelledby="step_<%= step.id %>_new_items" role="menu" >
+          <li class="add-item checklists" data-url="<%= step_checklists_path(step) %>" >Add Checklists</li>
+          <li class="add-item assets">Add Assets</li>
+        </ul>
+      </span>
       <span class="fas fa-arrow-up"></span>
       <span class="fas fa-arrow-down"></span>
       <span class="fas fa-ellipsis-h"></span>
@@ -40,7 +48,7 @@
           <%= render partial: 'steps/inline_step/checklist', locals: {
             checklist: checklist,
             step: step
-        } %>
+          } %>
         <% end %>
       <% end %>
     </div>

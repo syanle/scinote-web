@@ -1,0 +1,98 @@
+// scss-lint:disable SelectorDepth SelectorFormat
+// scss-lint:disable NestingDepth ImportantRule
+
+@import "constants";
+@import "mixins";
+
+.inline-step {
+  border: 1px solid $color-gainsboro;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  width: 100%;
+
+  .step-header {
+    align-items: center;
+    border-bottom: 1px solid $color-gainsboro;
+    display: flex;
+    min-height: 38px;
+
+    .fix-block {
+      flex-shrink: 0;
+    }
+
+    .step-collapse {
+      font-size: 14px;
+      text-align: center;
+      min-width: 30px;
+
+      .fas {
+        cursor: pointer;
+        font-size: 14px;
+      }
+    }
+
+    .step-position {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+      min-width: 38px;
+    }
+
+    .step-name {
+      flex-grow: 1;
+      max-width: calc(100% - 250px);
+      padding: 0 10px;
+
+      .view-mode, input {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+
+    .step-actions {
+      margin: 0 12px;
+
+      .fas {
+        cursor: pointer;
+        font-size: 14px;
+        margin: 0 12px;
+      }
+
+      .add-new-items-handler {
+        color: inherit;
+        line-height: 32px;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: none;
+        }
+      }
+
+      .add-new-items {
+        .add-item {
+          cursor: pointer;
+          padding: 5px 10px;
+        }
+      }
+    }
+  }
+
+  // Step body
+  .step-body {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+
+    .step-description {
+      padding: 10px 0 5px;
+      position: relative;
+      width: 100%;
+
+      .form-group {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
