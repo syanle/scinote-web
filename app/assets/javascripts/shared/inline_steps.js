@@ -118,6 +118,10 @@ var inlineSteps = (function() {
         $(result.html).appendTo(checklist.find('.checklist-items'))
       })
     })
+
+
+    // Assets
+    
   }
 
   return {

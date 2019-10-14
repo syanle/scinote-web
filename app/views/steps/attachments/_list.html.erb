@@ -1,8 +1,5 @@
 <% assets = ordered_assets(step) %>
-<div class="col-xs-12">
-<hr>
-</div>
-<div class="col-xs-12 attachments-actions">
+<div class="attachments-actions">
 
   <div class="title">
     <h4>
@@ -14,6 +11,10 @@
     <div class="attachemnts-header pull-right">
       <% if !(preview) && (can_manage_protocol_in_module?(@protocol) ||
                            can_manage_protocol_in_repository?(@protocol)) %>
+        <span class="btn btn-default upload-file-button">
+          <span class="fas fa-file-upload"></span>
+          Select to Upload...
+        </span>
         <%= render partial: '/assets/marvinjs/create_marvin_sketch_button.html.erb',
                    locals: {  element_id: step.id, element_type: 'Step',  sketch_container: ".attachments#att-#{step.id}" } %>
         <%= render partial: '/assets/wopi/create_wopi_file_button.html.erb',
@@ -40,7 +41,7 @@
   </div>
 </div>
 
-<div class="col-xs-12 attachments" id="att-<%= step.id %>">
+<div class="attachments" id="att-<%= step.id %>">
   <% assets.each_with_index do |asset, i| %>
     <% order_atoz = az_ordered_assets_index(step, asset.id) %>
     <% order_ztoa = assets.length - az_ordered_assets_index(step, asset.id) %>
@@ -48,4 +49,3 @@
       locals: { asset: asset, i: i, assets_count: assets.length, step: step, order_atoz: order_atoz, order_ztoa: order_ztoa } %>
   <% end %>
 </div>
-<hr>

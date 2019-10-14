@@ -1,0 +1,16 @@
+// scss-lint:disable SelectorDepth SelectorFormat
+// scss-lint:disable NestingDepth ImportantRule
+
+@import "constants";
+@import "mixins";
+
+.inline-step {
+  .step-assets {
+    .upload-file-button {
+      .fas {
+        color: $color-silver-chalice;
+        font-size: 16px;
+      }
+    }
+  }
+}

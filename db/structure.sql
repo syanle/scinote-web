@@ -214,6 +214,10 @@ CREATE TABLE public.assets (
     id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    file_file_name character varying,
+    file_content_type character varying,
+    file_file_size bigint,
+    file_updated_at timestamp without time zone,
     created_by_id bigint,
     last_modified_by_id bigint,
     estimated_size integer DEFAULT 0 NOT NULL,
@@ -525,11 +529,11 @@ CREATE TABLE public.experiments (
     restored_on timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    uuid uuid,
     workflowimg_file_name character varying,
     workflowimg_content_type character varying,
     workflowimg_file_size bigint,
-    workflowimg_updated_at timestamp without time zone
+    workflowimg_updated_at timestamp without time zone,
+    uuid uuid
 );
 
 
@@ -2047,7 +2051,11 @@ CREATE TABLE public.temp_files (
     id bigint NOT NULL,
     session_id character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    file_file_name character varying,
+    file_content_type character varying,
+    file_file_size bigint,
+    file_updated_at timestamp without time zone
 );
 
 
@@ -2076,6 +2084,10 @@ ALTER SEQUENCE public.temp_files_id_seq OWNED BY public.temp_files.id;
 
 CREATE TABLE public.tiny_mce_assets (
     id bigint NOT NULL,
+    image_file_name character varying,
+    image_content_type character varying,
+    image_file_size bigint,
+    image_updated_at timestamp without time zone,
     estimated_size integer DEFAULT 0 NOT NULL,
     team_id integer,
     created_at timestamp without time zone NOT NULL,
@@ -2342,6 +2354,10 @@ CREATE TABLE public.users (
     last_sign_in_ip character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    avatar_file_name character varying,
+    avatar_content_type character varying,
+    avatar_file_size bigint,
+    avatar_updated_at timestamp without time zone,
     confirmation_token character varying,
     confirmed_at timestamp without time zone,
     confirmation_sent_at timestamp without time zone,
@@ -2357,11 +2373,7 @@ CREATE TABLE public.users (
     current_team_id bigint,
     authentication_token character varying(30),
     settings jsonb DEFAULT '{}'::jsonb NOT NULL,
-    variables jsonb DEFAULT '{}'::jsonb NOT NULL,
-    avatar_file_name character varying,
-    avatar_content_type character varying,
-    avatar_file_size bigint,
-    avatar_updated_at timestamp without time zone
+    variables jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -2523,6 +2535,10 @@ CREATE TABLE public.zip_exports (
     user_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    zip_file_file_name character varying,
+    zip_file_content_type character varying,
+    zip_file_file_size bigint,
+    zip_file_updated_at timestamp without time zone,
     type character varying
 );
 
@@ -3729,6 +3745,13 @@ CREATE INDEX index_assets_on_created_at ON public.assets USING btree (created_at
 --
 
 CREATE INDEX index_assets_on_created_by_id ON public.assets USING btree (created_by_id);
+
+
+--
+-- Name: index_assets_on_file_file_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_assets_on_file_file_name ON public.assets USING gin (public.trim_html_tags((file_file_name)::text) public.gin_trgm_ops);
 
 
 --
