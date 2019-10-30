@@ -437,6 +437,7 @@ Rails.application.routes.draw do
                 path: '/comments',
                 only: [:create, :index, :edit, :update, :destroy]
 
+      resources :step_assets, only: :create
       resources :checklists, only: [:create, :update, :destroy] do
         resources :checklist_items, only: [:create, :update, :destroy] do
           collection do

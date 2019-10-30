@@ -128,7 +128,8 @@ var inlineSteps = (function() {
     init: () => {
       if ($('.steps-container').length) {
         initTinyMCE()
-        initChecklists() 
+        initChecklists()
+        StepAssets.init()
       }
     },
   };
