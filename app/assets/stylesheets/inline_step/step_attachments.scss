@@ -5,11 +5,278 @@
 @import "mixins";
 
 .inline-step {
-  .step-assets {
-    .upload-file-button {
-      .fas {
+  .attachments-header {
+    margin-bottom: 10px;
+
+    .title {
+      color: $color-silver-chalice;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .attachments-button-container {
+      align-items: center;
+      display: flex;
+      font-size: 14px;
+      height: 30px;
+
+      .drag-n-drop-info {
         color: $color-silver-chalice;
-        font-size: 16px;
+        flex-grow: 1
+      }
+
+      .add-file-button {
+        margin-right: 20px;
+        position: relative;
+
+        .add-attachments {
+          color: inherit;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .add-attachments-dropdown {
+          min-width: 220px;
+
+          .attachment-type {
+            cursor: pointer;
+            padding: 5px;
+
+            .fa-upload {
+              font-size: 18px;
+              line-height: 32px;
+              text-align: center;
+              width: 32px;
+            }
+
+            &:hover {
+              background: $color-gainsboro;
+            }
+          }
+        }
+      }
+
+      .sort-button {
+        position: relative;
+        margin-right: 10px;
+
+        .sort-attachments {
+          color: inherit;
+          min-width: 100px;
+          text-decoration: none;
+          padding: 5px;
+
+          .fa-caret-down {
+            padding-left: 4px;
+          }
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .sort-attachments-dropdown {
+          min-width: 100px;
+        }
+
+        .order-type {
+          cursor: pointer;
+          padding: 5px;
+
+          &:hover {
+            background: $color-gainsboro;
+          }
+        }
+      }
+    }
+  }
+
+  .attachments-list {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    justify-items: center;
+
+    .asset-container {
+      height: 286px;
+      overflow: hidden;
+      padding: 3px;
+      width: 226px;
+    }
+    
+    .asset-item {
+      border: 1px solid $color-gainsboro;
+      border-radius: 6px;
+      font-size: 16px;
+      height: 280px;
+      padding: 10px;
+      position: relative;
+      top: 0;
+      transition: .5s;
+      width: 220px;
+
+      &.new {
+      border: 1px solid $brand-primary;
+
+        &::before {
+          background: $brand-primary;
+          border-radius: 0 5px;
+          bottom: 0;
+          color: $color-white;
+          content: "NEW";
+          left: 0;
+          line-height: 20px;
+          padding-left: 5px;
+          position: absolute;
+          width: 50px;
+        }
+      }
+
+      .file-preview-link {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .attachment-image {
+        height: 160px;
+        margin-bottom: 10px;
+        position: relative;
+        text-align: center;
+        width: 200px;
+
+        img {
+          border-radius: 4px;
+          max-height: 100%;
+          max-width: 100%;
+        }
+
+        .fas {
+          color: $color-silver-chalice;
+          font-size: 120px;
+          line-height: 160px;
+        }
+
+        &.processing {
+          &:after {
+            animation: loading-animation 1.2s linear infinite;
+            border-radius: 50%;
+            border: 5px solid $brand-primary;
+            border-color: $brand-primary transparent $brand-primary transparent;
+            content: " ";
+            display: block;
+            height: 50px;
+            left: 75px;
+            position: absolute;
+            top: 55px;
+            width: 50px;
+          }
+          &:before {
+            animation: loading-animation-reverse 1.9s linear infinite;
+            border-radius: 50%;
+            border: 5px solid $color-black;
+            border-color: $color-black transparent $color-black transparent;
+            content: " ";
+            display: block;
+            height: 60px;
+            left: 70px;
+            position: absolute;
+            top: 50px;
+            width: 60px;
+          }
+          @keyframes loading-animation {
+            0% {transform: rotate(0deg);}
+            100% {transform: rotate(360deg);}
+          }
+          @keyframes loading-animation-reverse {
+            0% {transform: rotate(0deg);}
+            100% {transform: rotate(-360deg);}
+          }
+        }
+
+        &.marvinjs {
+          &::before,
+          &::after {
+            content: "";
+            border-radius: 16px 0 0 16px;
+            display: block;
+            height: 32px;
+            right: -9px;
+            line-height: 32px;
+            position: absolute;
+            bottom: 10px;
+            width: 36px;
+          }
+
+          &::before {
+            background: $marvinjs-color;
+          }
+
+          &::after {
+            background-image: url("/images/icon_small/marvinjs-white.svg");
+            right: -6px;
+            width: 32px;
+          }
+        }
+      }
+
+      .attachment-label {
+        align-items: center;
+        background: $color-white;
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        position: relative;
+        top: 20px;
+        transition: $md-transaction;
+        z-index: 2;
+
+        .file-name {
+          line-height: 20px;
+          max-height: 40px;
+          overflow: hidden;
+          text-align: center;
+        }
+      }
+
+      .attachment-info {
+        color: $color-silver-chalice;
+        font-size: 12px;
+        line-height: 15px;
+        position: relative;
+        top: -20px;
+        transition: $md-transaction;
+        text-align: center;
+      }
+
+      .remove-icon {
+        bottom: 0;
+        color: $color-silver-chalice;
+        cursor: pointer;
+        display: none;
+        line-height: 32px;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        width: 32px;
+      }
+
+      &:hover {
+        box-shadow: $md-shadow;
+
+        .file-preview-link {
+          text-decoration: none;
+        }
+
+        .attachment-label,
+        .attachment-info {
+          top: 0;
+        }
+        .remove-icon {
+          display: block;
+        }
       }
     }
   }

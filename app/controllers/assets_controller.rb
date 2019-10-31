@@ -150,7 +150,7 @@ class AssetsController < ApplicationController
                     order_ztoa = assets.length - az_ordered_assets_index(@asset.step, @asset.id)
                     asset_position = @asset.step.asset_position(@asset)
                     render_to_string(
-                      partial: 'steps/attachments/item.html.erb',
+                      partial: 'steps/inline_step/asset_item.html.erb',
                       locals: {
                         asset: @asset,
                         i: asset_position[:pos],

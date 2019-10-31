@@ -1,0 +1,44 @@
+<% assets = ordered_assets(step) %>
+<div class="attachments-header">
+  <div class="title"><%= t('protocols.steps.files_html', count: assets.length) %></div>
+  <div class="attachments-button-container">
+    <div class="drag-n-drop-info">Drag & Drop to upload files.</div>
+    <div class="add-file-button">
+        <a href="#" data-toggle="dropdown" class="sci-button add-attachments" aria-haspopup="true" aria-expanded="false">
+           Add attachment...
+      </a>
+      <ul class="dropdown-menu add-attachments-dropdown" role="menu" >
+        <li class="attachment-type upload-file-button"
+            data-direct-upload-url="<%= rails_direct_uploads_url %>"
+            data-create-url="<%= step_step_assets_path(step) %>"
+        >
+          Upload from computer
+          <%= file_field_tag 'asset', class: "file-field hidden" %>
+        </li>
+        <li class="attachment-type">
+          <%= render partial: '/assets/marvinjs/create_marvin_sketch_button.html.erb',
+                     locals: {  element_id: step.id, element_type: 'Step',  sketch_container: ".attachments-list#att-#{step.id}" } %>
+        </li>
+      </ul>
+    </div>
+    <div class="sort-button">
+      <a href="#" data-toggle="dropdown" class="sci-button sort-attachments" aria-haspopup="true" aria-expanded="false">
+           <% sort = step.current_view_state(current_user).state.dig('assets', 'sort') %>
+           <span class="order-text"><%= t("general.sort.#{sort}_html") %></span>
+      </a>
+      <ul class="dropdown-menu sort-attachments-dropdown" data-state-save-path="<%= update_view_state_step_path(step.id) %>" role="menu" >
+      <% ['new', 'old', 'atoz', 'ztoa'].each do |sort| %>
+        <li class="order-type" data-order="<%= sort %>"><%= t("general.sort.#{sort}_html") %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="attachments-list" id="att-<%= step.id %>">
+  <% assets.each_with_index do |asset, i| %>
+    <% order_atoz = az_ordered_assets_index(step, asset.id) %>
+    <% order_ztoa = assets.length - az_ordered_assets_index(step, asset.id) %>
+    <%= render partial: 'steps/inline_step/asset_item.html.erb',
+      locals: { asset: asset, i: i, assets_count: assets.length, step: step, order_atoz: order_atoz, order_ztoa: order_ztoa } %>
+  <% end %>
+</div>

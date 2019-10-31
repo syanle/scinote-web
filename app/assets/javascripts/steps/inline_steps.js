@@ -43,14 +43,16 @@ var inlineSteps = (function() {
     $(stepContainer).on('click', '.checklist-actions .fa-trash', function() {
       var checklist = $(this).closest('.checklist');
       var deleteUrl = checklist.data('checklist-delete-url');
-      $.ajax({
-        url: deleteUrl,
-        type: 'DELETE',
-        dataType: 'json',
-        success: function(result) {
-          checklist.remove()
-        }
-      });
+      if (confirm("Are you sure you want to delete this checklist?")) {
+        $.ajax({
+          url: deleteUrl,
+          type: 'DELETE',
+          dataType: 'json',
+          success: function(result) {
+            checklist.remove()
+          }
+        });
+      }
     })
 
 

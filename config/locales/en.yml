@@ -1798,7 +1798,7 @@ en:
       comments_tab: "Comments"
       no_description: "This step has no description."
       tables: "Tables"
-      files: "Attachments (%{count})"
+      files_html: "Attachments (<span class=\"attachments-count\">%{count}</span>)"
       comments: "Comments"
       empty_checklist: "No items"
       comment_title: "%{user} at %{time}:"

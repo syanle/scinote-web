@@ -1,0 +1,43 @@
+<% asset_type = asset.file.metadata['asset_type'] if asset.file.attached? %>
+<div class="asset-container">
+    <div class="asset-item">
+    <%= link_to rails_blob_path(asset.file, disposition: 'attachment'),
+                class: 'file-preview-link',
+                id: "modal_link#{asset.id}",
+                data: { no_turbolink: true,
+                        id: true,
+                        'preview-url': asset_file_preview_path(asset),
+                        'order-atoz': order_atoz,
+                        'order-ztoa': order_ztoa,
+                        'order-old': i,
+                        'order-new': assets_count - i,
+                } do %>
+      <div class="attachment-image <%= asset_type %>">
+      <% if asset.previewable? %>
+        <%= image_tag asset.medium_preview,
+                        onerror: 'ActiveStoragePreviews.reCheckPreview(event)',
+                        onload: 'ActiveStoragePreviews.showPreview(event)',
+                        style: 'opacity: 0' %>
+      <% else %>
+        <i class="fas fa-paperclip"></i>
+      <% end %>
+      </div>
+      <div class="attachment-label">
+        <span class="file-name">
+            <% if asset_type %>
+              <%= truncate(asset.file.metadata['name'], length: Constants::FILENAME_TRUNCATION_LENGTH) %>
+            <% else %>
+              <%= truncate(asset.file_name, length: Constants::FILENAME_TRUNCATION_LENGTH) %>
+            <% end %>
+        </span>
+      </div>
+      <div class="attachment-info">
+        <%= t('assets.placeholder.modified_label') %> <%= l(asset.updated_at, format: :full_date) if asset.updated_at %><br>
+        <%= number_to_human_size(asset.file_size) %>
+      </div>
+    <% end %>
+    <div class="remove-icon" data-destroy-url="<%= step_step_asset_path(step, asset) %>">
+        <span class="fas fa-trash"></span>
+    </div>
+    </div>
+</div>

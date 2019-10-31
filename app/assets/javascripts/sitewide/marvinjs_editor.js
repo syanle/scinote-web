@@ -153,10 +153,11 @@ var MarvinJsEditorApi = (function() {
       var newAsset = $(result.html);
       var json;
       if (config.objectType === 'Step') {
-        newAsset.find('.file-preview-link').css('top', '-300px');
-        newAsset.addClass('new').prependTo($(config.container));
+        newAsset.find('.asset-item').css('top', '-300px');
+        newAsset.find('.asset-item').addClass('new')
+        newAsset.prependTo($(config.container));
         setTimeout(function() {
-          newAsset.find('.file-preview-link').css('top', '0px');
+          newAsset.find('.asset-item').css('top', '0px');
         }, 200);
       } else if (config.objectType === 'Result') {
         newAsset.prependTo($(config.container));

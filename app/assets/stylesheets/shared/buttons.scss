@@ -1,0 +1,18 @@
+// scss-lint:disable SelectorDepth SelectorFormat
+// scss-lint:disable NestingDepth ImportantRule
+
+@import "constants";
+@import "mixins";
+
+.sci-button {
+  border-radius: 4px;
+  display: inline-block;
+  height: 30px;
+  line-height: 20px;
+  padding: 5px;
+
+  &:hover {
+    background: $color-gainsboro;
+  }
+}
+

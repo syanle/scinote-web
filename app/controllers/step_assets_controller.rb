@@ -1,7 +1,7 @@
 class StepAssetsController < ApplicationController
 
-  before_action :load_vars, only: %i(create)
-  before_action :check_manage_permissions, only: %i(create edit update)
+  before_action :load_vars, only: %i(create destroy)
+  before_action :check_manage_permissions, only: %i(create destroy)
 
   def create
     new_asset = Asset.create(created_by: current_user, last_modified_by: current_user, team: current_team)
@@ -9,7 +9,7 @@ class StepAssetsController < ApplicationController
     @step.assets << new_asset
     render json: {
         html: render_to_string(
-          partial: 'steps/attachments/item.html.erb',
+          partial: 'steps/inline_step/asset_item.html.erb',
              locals: { asset: new_asset,
                        i: 0,
                        assets_count: 0,
@@ -18,6 +18,13 @@ class StepAssetsController < ApplicationController
                        order_ztoa: 0 }
         )
       }
+  end
+
+  def destroy
+    asset = @step.assets.find(params[:id])
+    if asset.destroy
+      render json: {status: 'ok'}
+    end
   end
 
   private
