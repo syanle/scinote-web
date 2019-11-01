@@ -90,6 +90,18 @@
       position: relative;
       width: 100%;
 
+      .tinymce-view {
+        table {
+          border: 1px solid $color-silver;
+
+          td,
+          th {
+            border: 1px solid $color-silver;
+            padding: 5px;
+          }
+        }
+      }
+
       .form-group {
         margin-bottom: 0;
       }

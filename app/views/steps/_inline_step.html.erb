@@ -23,7 +23,7 @@
         </a>
         <ul class="dropdown-menu add-new-items" aria-labelledby="step_<%= step.id %>_new_items" role="menu" >
           <li class="add-item checklists" data-url="<%= step_checklists_path(step) %>" >Add Checklists</li>
-          <li class="add-item assets">Add Assets</li>
+          <li class="add-item assets <%= 'hidden' if step.assets.any? %>">Add Attachments</li>
         </ul>
       </span>
       <span class="fas fa-arrow-up"></span>
@@ -52,7 +52,10 @@
         <% end %>
       <% end %>
     </div>
-    <div class="step-assets">
+    <div class="step-tables">
+      <%= render partial: 'steps/inline_step/tables.html.erb', locals: {step: step} %>
+    </div>
+    <div class="step-assets <%= 'hidden' unless step.assets.any? %>" >
        <%= render partial: 'steps/inline_step/assets.html.erb', locals: {  step: step, preview: false } %>
     </div>
   </div>

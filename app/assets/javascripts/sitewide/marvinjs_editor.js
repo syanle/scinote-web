@@ -159,6 +159,7 @@ var MarvinJsEditorApi = (function() {
         setTimeout(function() {
           newAsset.find('.asset-item').css('top', '0px');
         }, 200);
+        StepAssets.updateAssetCounter($(config.container).closest('.step-assets'))
       } else if (config.objectType === 'Result') {
         newAsset.prependTo($(config.container));
         Results.expandResult(newAsset);

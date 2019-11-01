@@ -21,7 +21,7 @@ input[type="checkbox"].simple-checkbox {
   + .checkbox-label {
     display: inline-block;
     flex-shrink: 0;
-    height: var(--checkbox-size);
+    height: calc(var(--checkbox-size) - 2px);
     margin-left: calc((var(--checkbox-size) * -1) - 1px);
     position: relative;
     width: var(--checkbox-size);

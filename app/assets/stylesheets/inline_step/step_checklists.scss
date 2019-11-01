@@ -22,7 +22,7 @@
 
         .checklist-name {
           flex-basis:  calc(100% - 170px);
-          font-size: 14px;
+          font-size: 16px;
           font-weight: bold;
           max-width: calc(100% - 170px);
         }
@@ -71,17 +71,20 @@
           }
 
           .checklist-checkbox {
-            width: 40px;
+            width: 30px;
 
             .custom-checkbox {
+              --checkbox-size: 18px;
               margin-left: -4px;
             }
           }
 
           .checklist-item-name {
+            font-size: 16px;
             width: calc(100% - 80px);
 
             .view-name {
+              font-size: 16px;
               line-height: 18px;
             }
 

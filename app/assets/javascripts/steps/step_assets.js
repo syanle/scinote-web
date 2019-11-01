@@ -1,6 +1,14 @@
 var StepAssets = (function() {
   var stepContainer = '.steps-container';
 
+  function initAddAssetsButton() {
+    $(stepContainer).off('click', '.step-actions .add-new-items .assets')
+      .on('click', '.step-actions .add-new-items .assets', function() {
+        $(this).closest('.inline-step').find('.step-assets').removeClass('hidden')
+        $(this).addClass('hidden')
+      })
+  }
+
   function initDirectUpload() {
     $(stepContainer).off('change click', '.upload-file-button .file-field')
       .on('change', '.upload-file-button .file-field', function() {
@@ -143,11 +151,16 @@ var StepAssets = (function() {
 
   return {
     init: () => {
+      initAddAssetsButton()
       initDirectUpload()
       initUploadButton()
       initDragNDropFile()
       reorderAtachments()
       initDeleteAssetButton()
+    },
+
+    updateAssetCounter: (container) => {
+      updateAssetCounter(container)
     }
   };
 }());

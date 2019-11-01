@@ -1,0 +1,16 @@
+<% if step.tables.any? %>
+  <% step.tables.each do |table| %>
+    <div class="tables-title">
+      <%= auto_link(simple_format(table.name),
+                    link: :urls,
+                    html: { target: '_blank' }) %>
+    </div>
+    <div data-role="hot-table" class="hot-table">
+      <%= hidden_field(table, :contents, value: table.contents_utf_8, class: "hot-contents") %>
+      <div data-role="step-hot-table" class="step-result-hot-table"></div>
+      <div class="export-buttons">
+        <div class="btn btn-primary export-to-description">Export to description</div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
