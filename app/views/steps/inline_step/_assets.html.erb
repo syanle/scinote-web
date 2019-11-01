@@ -3,6 +3,7 @@
   <div class="title"><%= t('protocols.steps.files_html', count: assets.length) %></div>
   <div class="attachments-button-container">
     <div class="drag-n-drop-info">Drag & Drop to upload files.</div>
+    <div class="upload-file-error"></div>
     <div class="add-file-button">
         <a href="#" data-toggle="dropdown" class="sci-button add-attachments" aria-haspopup="true" aria-expanded="false">
            Add attachment...
@@ -41,4 +42,8 @@
     <%= render partial: 'steps/inline_step/asset_item.html.erb',
       locals: { asset: asset, i: i, assets_count: assets.length, step: step, order_atoz: order_atoz, order_ztoa: order_ztoa } %>
   <% end %>
+</div>
+<div class="drag-n-drop-zone">
+  <div class="drag-n-drop-background"></div>
+  <span class="drag-n-drop-text">Drag & Drop here</span>
 </div>

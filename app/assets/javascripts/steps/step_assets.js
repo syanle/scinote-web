@@ -9,8 +9,17 @@ var StepAssets = (function() {
         var uploadUrl = uploadButton.data('direct-upload-url')
         var createUrl = uploadButton.data('create-url')
         var upload = new ActiveStorage.DirectUpload(file, uploadUrl);
-        
-        if (checkFileSizeLimit(file)) return false
+        var errorField = uploadButton.closest('.step-assets').find('.upload-file-error')
+        var errorMessage;
+
+        if (checkFileSizeLimit(file)) {
+          errorMessage = I18n.t('general.file.size_exceeded',{file_size: GLOBAL_CONSTANTS.FILE_MAX_SIZE_MB})
+          errorField.html(errorMessage)
+          setTimeout(() => {
+            errorField.html('')
+          }, 10000)
+          return false
+        }
 
         upload.create(function(error, blob) {
           if (error) {
@@ -26,7 +35,8 @@ var StepAssets = (function() {
                 newAssetContainer.find('.asset-item').css('top', '0px');
               }, 200);  
               FilePreviewModal.init();
-              updateAssetCounter(uploadButton.closest('.step-assets'));                                  
+              updateAssetCounter(uploadButton.closest('.step-assets'));
+              errorField.html('')                                 
             })
           }
         });
@@ -44,24 +54,41 @@ var StepAssets = (function() {
   }
 
   function initDragNDropFile() {
-    $(window).off('drop dragover').on('drop dragover', function(e) {
+    $(window).off('drop dragleave dragover').on('drop dragleave dragover', function(e) {
       e.preventDefault();
       e.stopPropagation();
+      
+      if ((e.type === 'dragleave' && e.fromElement === null) || e.type === 'drop') {
+        $(stepContainer).find('.drag-n-drop-zone').css('display', 'none')
+      }
     })
 
-    $(stepContainer).off('dragover dragenter drop', '.attachments')
-      .on('dragover dragenter', '.attachments-list', function(e) {
+    $(stepContainer).off('dragover dragenter drop', '.inline-step')
+      .on('dragover dragenter drop', '.inline-step', function(e) {
+        if (e.type === 'dragover') {
+          $(stepContainer).find('.drag-n-drop-zone').css('display', 'none')
+          $(this).find('.drag-n-drop-zone').css('display', 'flex')
+        }
+
         e.preventDefault();
         e.stopPropagation();
       })
-      .on('drop', '.attachments-list', function(e) {
+
+    $(stepContainer).off('dragover dragenter drop', '.drag-n-drop-zone')
+      .on('dragover dragenter', '.drag-n-drop-zone', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      })
+      .on('drop', '.drag-n-drop-zone', function(e) {
+        console.log(e.originalEvent)
         if(e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files.length) {
             var fileField = $(this).closest('.step-assets').find('.upload-file-button .file-field')
             e.preventDefault();
             e.stopPropagation();
             fileField[0].files = e.originalEvent.dataTransfer.files
-            fileField.change()
+            fileField.change()   
         }
+        $(stepContainer).find('.drag-n-drop-zone').css('display', 'none')
       })
   }
 
