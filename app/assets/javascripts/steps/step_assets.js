@@ -18,6 +18,7 @@ var StepAssets = (function() {
         var createUrl = uploadButton.data('create-url')
         var upload = new ActiveStorage.DirectUpload(file, uploadUrl);
         var errorField = uploadButton.closest('.step-assets').find('.upload-file-error')
+        var uploadingField = uploadButton.closest('.step-assets').find('.upload-file-uploading')
         var errorMessage;
 
         if (checkFileSizeLimit(file)) {
@@ -29,9 +30,11 @@ var StepAssets = (function() {
           return false
         }
 
+        uploadingField.removeClass('hidden');
+
         upload.create(function(error, blob) {
           if (error) {
-            // Handle the error
+            uploadingField.addClass('hidden');
           } else {
             $.post(createUrl, {blob_id: blob.signed_id}, function(result) {
               var newAssetContainer = $(result.html);
@@ -44,7 +47,8 @@ var StepAssets = (function() {
               }, 200);  
               FilePreviewModal.init();
               updateAssetCounter(uploadButton.closest('.step-assets'));
-              errorField.html('')                                 
+              errorField.html('')
+              uploadingField.addClass('hidden');                                
             })
           }
         });
@@ -82,7 +86,7 @@ var StepAssets = (function() {
         e.stopPropagation();
       })
 
-    $(stepContainer).off('dragover dragenter drop', '.drag-n-drop-zone')
+    $(stepContainer).off('dragover dragenter drop click', '.drag-n-drop-zone')
       .on('dragover dragenter', '.drag-n-drop-zone', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -96,6 +100,9 @@ var StepAssets = (function() {
             fileField[0].files = e.originalEvent.dataTransfer.files
             fileField.change()   
         }
+        $(stepContainer).find('.drag-n-drop-zone').css('display', 'none')
+      })
+      .on('click', '.drag-n-drop-zone', function() {
         $(stepContainer).find('.drag-n-drop-zone').css('display', 'none')
       })
   }

@@ -6,9 +6,36 @@
 
 .inline-step {
   .step-tables {
-    .tables-title {
-      font-size: 16px;
-      font-weight: bold;
+    .step-table {
+      .table-header {
+        align-items: center;
+        display: flex;
+        min-height: 30px;
+
+        .tables-title {
+          flex-grow: 1;
+          font-size: 16px;
+          font-weight: bold;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .action-buttons {
+          display: none;
+          flex-shrink: 0;
+
+          .sci-button {
+            margin-left: 10px;
+          }
+        }
+      }
+
+      &:hover {
+        .action-buttons {
+          display: block;
+        }
+      }
     }
   }
 }

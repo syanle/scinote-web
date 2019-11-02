@@ -127,7 +127,7 @@ var inlineSteps = (function() {
         var createUrl = checklist.data('checklist-create-url');
         var text = $(this).find('.text').html();
         $.post(createUrl, {text: text}, function(result) {
-          $(result.html).appendTo(checklist.find('.checklist-items'))
+          $(result.html).appendTo(checklist.find('.checklist-items')).find('textarea').focus().select()
         })
       })
 

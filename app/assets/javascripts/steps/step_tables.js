@@ -2,9 +2,9 @@ var StepTables = (function() {
   var stepContainer = '.steps-container';
 
   function exportTableToDescription() {
-    $(stepContainer).off('click', '.hot-table .export-to-description')
-      .on('click', '.hot-table .export-to-description', function() {
-        var table = $(this).closest('.hot-table').find('.ht_master .htCore').clone()
+    $(stepContainer).off('click', '.table-header .export-to-description')
+      .on('click', '.table-header .export-to-description', function() {
+        var table = $(this).closest('.step-table').find('.ht_master .htCore').clone()
         var descriptionForm = $(this).closest('.inline-step').find('.step-description form.edit_step')
         var description = descriptionForm.find('textarea').val()
         table.removeClass('htCore')
@@ -15,6 +15,32 @@ var StepTables = (function() {
         descriptionForm.submit()
       })
   }
+
+  function exportTableToXlsx() {
+    $(stepContainer).off('click', '.table-header .export-to-xlsx')
+      .on('click', '.table-header .export-to-xlsx', function() {
+        window.open($(this).data('export-url'), '_blank');
+      })
+  }
+
+  function destroyTableButton() {
+    $(stepContainer).off('click', '.table-header .delete-table')
+      .on('click', '.table-header .delete-table', function() {
+        var table = $(this).closest('.step-table');
+        var deleteUrl = $(this).data('destroy-url');
+        if (confirm('Are you sure you want to delete table?')) {
+          $.ajax({
+            url: deleteUrl,
+            type: 'DELETE',
+            dataType: 'json',
+            success: function(result) {
+              table.remove()
+            }
+          });
+        }
+      })
+  }
+
 
   function initTables() {
     $(stepContainer).find("[data-role='hot-table']").each(function()  {
@@ -47,7 +73,8 @@ var StepTables = (function() {
         if (Array.isArray(data.data)) hot.loadData(data.data);
         setTimeout(() => {
           hot.render()
-        }, 0)
+          renderTable($container);
+        }, 2000)
       }
     });
   }
@@ -65,6 +92,8 @@ var StepTables = (function() {
     init: () => {
       initTables()
       exportTableToDescription()
+      exportTableToXlsx()
+      destroyTableButton()
     }
   };
 }());

@@ -438,6 +438,11 @@ Rails.application.routes.draw do
                 only: [:create, :index, :edit, :update, :destroy]
 
       resources :step_assets, only: [:create, :destroy]
+      resources :step_tables, only: [:destroy] do
+        member do
+          get :export_xlsx
+        end
+      end
       resources :checklists, only: [:create, :update, :destroy] do
         resources :checklist_items, only: [:create, :update, :destroy] do
           collection do

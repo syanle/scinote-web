@@ -31,7 +31,6 @@
           display: none;
           flex-basis: 160px;
           margin-left: 10px;
-          opacity: 0.7;
           text-align: right;
 
           .fas {
@@ -58,7 +57,7 @@
           display: flex;
           list-style-type: none;
           margin: 5px 0px;
-          min-height: 30px;
+          min-height: 32px;
           padding: 5px 10px;
           transition: $md-transaction;
           max-width: 100%;
@@ -66,8 +65,6 @@
           .fa-grip-horizontal {
             cursor: pointer;
             display: none;
-            line-height: 20px;
-            opacity: 0.7;
           }
 
           .checklist-checkbox {
@@ -81,18 +78,20 @@
 
           .checklist-item-name {
             font-size: 16px;
+            line-height: 20px;
             width: calc(100% - 80px);
 
             .view-name {
               font-size: 16px;
-              line-height: 18px;
+              line-height: 20px;
             }
 
             .edit-name {
               border: 0;
               display: none;
+              float: left;
               height: 18px;
-              line-height: 18px;
+              line-height: 20px;
               outline: 0;
               padding: 0;
               width: 100%;
@@ -107,7 +106,6 @@
               cursor: pointer;
               display: none;
               line-height: 20px;
-              opacity: 0.7;
             }
           }
         }
@@ -119,15 +117,16 @@
           box-shadow: $md-shadow;
           cursor: pointer;
           display: none;
+          font-size: 16px;
           margin: 5px 0px 5px 10px;
-          min-height: 30px;
+          min-height: 30px; 
           opacity: .7;
           padding: 5px 10px;
           max-width: 100%;
 
           .fas {
             display: inline-block;
-            width: 40px;
+            width: 30px;
           }
         }
 
