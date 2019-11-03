@@ -4,6 +4,23 @@
 @import "constants";
 @import "mixins";
 
+.steps-container {
+  .inline-step:nth-child(1) {
+    .step-header {
+      .fa-arrow-up {
+        display: none;
+      }
+    }
+  }
+  .inline-step:nth-last-child(1) {
+    .step-header {
+      .fa-arrow-down {
+        display: none;
+      }
+    }
+  }
+}
+
 .inline-step {
   border: 1px solid $color-gainsboro;
   border-radius: 3px;
@@ -53,11 +70,15 @@
 
     .step-actions {
       margin: 0 12px;
+      min-width: 150px;
+      text-align: right;
 
       .fas {
         cursor: pointer;
         font-size: 14px;
         margin: 0 12px;
+
+
       }
 
       .add-new-items-handler {
@@ -104,6 +125,21 @@
 
       .form-group {
         margin-bottom: 0;
+      }
+    }
+
+    .step-comments {
+      border-top: 1px solid $color-concrete;
+
+      .comments-title {
+        color: $color-silver-chalice;
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 10px;
+
+        &[data-comments-count='0'] {
+          display: none;
+        }
       }
     }
   }

@@ -5,6 +5,7 @@ var Comments = (function() {
     var currentCount = $('#comment-counter-' + comment.closest('.comments-container').attr('data-object-id'));
     var newValue = parseInt(currentCount.html(), 10) + value;
     currentCount.html(newValue);
+    currentCount.parent().attr('data-comments-count', newValue)
     if (newValue === 0) {
       currentCount.addClass('hidden');
     } else {

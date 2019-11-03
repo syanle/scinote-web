@@ -10,6 +10,32 @@ var inlineSteps = (function() {
       })
   }
 
+  function initStepMove() {
+    $(stepContainer).off('click', '.inline-step .move-step')
+      .on('click', '.inline-step  .move-step', function(e) {
+        var button = $(this)
+        $.get($(this).data('move-url'), function(data){
+          var $step = button.closest(".inline-step");
+          var stepUpPosition = data.step_up_position;
+          var stepDownPosition = data.step_down_position;
+          var $stepDown, $stepUp;
+          switch (data.move_direction) {
+            case "up":
+              $stepDown = $step.prev();
+              $stepUp = $step;
+              break;
+            case "down":
+              $stepDown = $step;
+              $stepUp = $step.next();
+          }
+          $stepDown.insertAfter($stepUp);
+          $stepDown.find(".step-position").html(stepDownPosition + 1);
+          $stepUp.find(".step-position").html(stepUpPosition + 1);
+          $("html, body").animate({ scrollTop: $step.offset().top - 150 });
+        })
+    });
+  }
+
   function initChecklists() {
     function updateOrder(checklistContainer) {
       var order = [];
@@ -130,10 +156,6 @@ var inlineSteps = (function() {
           $(result.html).appendTo(checklist.find('.checklist-items')).find('textarea').focus().select()
         })
       })
-
-
-    // Assets
-    
   }
 
   return {
@@ -141,6 +163,7 @@ var inlineSteps = (function() {
       if ($('.steps-container').length) {
         initTinyMCE()
         initChecklists()
+        initStepMove()
         StepAssets.init()
         StepTables.init()
       }

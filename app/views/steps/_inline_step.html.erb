@@ -26,8 +26,12 @@
           <li class="add-item assets <%= 'hidden' if step.assets.any? %>">Add Attachments</li>
         </ul>
       </span>
-      <span class="fas fa-arrow-up"></span>
-      <span class="fas fa-arrow-down"></span>
+      <span class="fas fa-arrow-up move-step"
+            data-move-url="<%= move_up_step_path(step, format: :json) %>"
+      ></span>
+      <span class="fas fa-arrow-down move-step"
+            data-move-url="<%= move_down_step_path(step, format: :json) %>"
+      ></span>
       <span class="fas fa-ellipsis-h"></span>
     </div>
   </div>
@@ -57,6 +61,11 @@
     </div>
     <div class="step-assets <%= 'hidden' unless step.assets.any? %>" >
        <%= render partial: 'steps/inline_step/assets.html.erb', locals: {  step: step, preview: false } %>
+    </div>
+    <div class="step-comments">
+      <%= render partial: 'steps/comments.html.erb', locals: {  comments: step.last_comments,
+                                                                    comments_count: step.step_comments.count,
+                                                                    step: step } %>
     </div>
   </div>
 </div>

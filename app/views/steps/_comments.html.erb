@@ -1,10 +1,7 @@
 <% if can_read_protocol_in_module?(@protocol) %>
-
-  <div class="col-xs-12 comments-title">
-    <h4>
+  <div class="comments-title" data-comments-count=<%= comments_count %>>
       <%=t('protocols.steps.comments') %>
       (<span id="comment-counter-<%= step.id %>"><%= comments_count %></span>)
-    </h4>
   </div>
 
   <%= render partial: 'shared/comments/comments.html.erb', locals: {
