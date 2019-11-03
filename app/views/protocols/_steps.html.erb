@@ -1,13 +1,11 @@
 <% if can_manage_protocol_in_module?(@protocol) || can_manage_protocol_in_repository?(@protocol) %>
   <div class="row">
     <div class="pull-left" style="margin: 0 0 20px 15px;">
-        <a href="#"
-           class="btn btn-primary"
-           data-action="new-step"
-           data-href="<%= new_protocol_step_path(protocol_id: @protocol.id, format: :json) %>">
-          <span class="fas fa-plus" aria-hidden="true"></span>
-          <span class="hidden-xs"><%=t "protocols.steps.new_step" %></span>
-        </a>
+      <div class="btn btn-primary add-new-step"
+           data-create-url="<%= protocol_steps_path(@protocol) %>">
+        <span class="fas fa-plus" aria-hidden="true"></span>
+        <%=t "protocols.steps.new_step" %>
+      </div>
     </div>
     <div class="pull-right expand-all-steps" style="margin: 0 15px 20px 0; display: <%= 'none' if @protocol.steps.empty? %>">
       <a class="btn btn-default" data-action="collapse-steps">
@@ -27,14 +25,12 @@
 <% if can_manage_protocol_in_module?(@protocol) || can_manage_protocol_in_repository?(@protocol) %>
   <div class="row">
     <div class="pull-left" style="margin: 0 0 20px 15px;">
-      <a href="#"
-         class="btn btn-primary"
-         data-action="new-step"
-         data-href="<%= new_protocol_step_path(protocol_id: @protocol.id, format: :json) %>"
-         style="<%= @protocol.steps.empty? ? 'display: none;' : '' %>">
+      <div class="btn btn-primary add-new-step"
+           data-create-url="<%= protocol_steps_path(@protocol) %>"
+           style="<%= @protocol.steps.empty? ? 'display: none;' : '' %>">
         <span class="fas fa-plus" aria-hidden="true"></span>
-        <span class="hidden-xs"><%=t "protocols.steps.new_step" %></span>
-      </a>
+        <%=t "protocols.steps.new_step" %>
+      </div>
     </div>
   </div>
 <% end %>

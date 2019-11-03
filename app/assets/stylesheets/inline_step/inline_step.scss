@@ -95,6 +95,35 @@
         .add-item {
           cursor: pointer;
           padding: 5px 10px;
+
+          &:hover {
+            background: $color-gainsboro;
+          }
+        }
+      }
+
+      .step-options {
+        .step-options-button {
+          color: inherit;
+          line-height: 32px;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        .step-options-items {
+          left: auto;
+
+          .step-option {
+            cursor: pointer;
+            padding: 5px 10px;
+
+            &:hover {
+              background: $color-gainsboro;
+            }
+          }
         }
       }
     }

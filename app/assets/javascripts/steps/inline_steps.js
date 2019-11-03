@@ -3,10 +3,37 @@
 var inlineSteps = (function() {
   var stepContainer = '.steps-container';
 
+  function initStepCreateButton() {
+    $('.add-new-step').off().on('click', function() {
+      var createUrl = $(this).data('create-url')
+      $.post(createUrl, function(result) {
+        $(result.html).appendTo(stepContainer)
+      })
+    })
+  }
+
   function initTinyMCE() {
     $(stepContainer).off('click', '.step-description .tinymce-view')
       .on('click', '.step-description .tinymce-view', function() {
         TinyMCE.init(`#${$(this).next().find('textarea').attr('id')}`);
+      })
+  }
+
+  function initStepDestroy() {
+    $(stepContainer).off('click', '.step-options-items .destroy')
+      .on('click', '.step-options-items .destroy', function() {
+        var step = $(this).closest('.inline-step')
+        var deleteUrl = $(this).data('destroy-url')
+        if (confirm("Are you sure you want to delete this step?")) {
+          $.ajax({
+            url: deleteUrl,
+            type: 'DELETE',
+            dataType: 'json',
+            success: function(result) {
+              step.remove()
+            }
+          });
+        }
       })
   }
 
@@ -164,6 +191,8 @@ var inlineSteps = (function() {
         initTinyMCE()
         initChecklists()
         initStepMove()
+        initStepDestroy()
+        initStepCreateButton()
         StepAssets.init()
         StepTables.init()
       }

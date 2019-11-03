@@ -92,8 +92,7 @@ var StepAssets = (function() {
         e.stopPropagation();
       })
       .on('drop', '.drag-n-drop-zone', function(e) {
-        console.log(e.originalEvent)
-        if(e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files.length) {
+        if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files.length) {
             var fileField = $(this).closest('.step-assets').find('.upload-file-button .file-field')
             e.preventDefault();
             e.stopPropagation();

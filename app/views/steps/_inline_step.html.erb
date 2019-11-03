@@ -5,7 +5,7 @@
     </div>
     <div class="step-position"><%= step.position + 1 %></div>
     <div class="step-name">
-      <%= render partial: "shared/inline_editing",
+      <%= render partial: "shared/inline_editing.html.erb",
                  locals: { 
                     initial_value: step.name,
                     local_config: {
@@ -32,12 +32,21 @@
       <span class="fas fa-arrow-down move-step"
             data-move-url="<%= move_down_step_path(step, format: :json) %>"
       ></span>
-      <span class="fas fa-ellipsis-h"></span>
+      
+      <span class="step-options dropdown"> 
+        <a href="#" data-toggle="dropdown" class="step-options-button" id="step_<%= step.id %>_options" aria-haspopup="true" aria-expanded="false">
+           <span class="fas fa-ellipsis-h dropdown-handler"></span>
+        </a>
+        <ul class="dropdown-menu step-options-items" aria-labelledby="step_<%= step.id %>_options" role="menu" >
+          <li class="step-option complete" >Complete step</li>
+          <li class="step-option destroy" data-destroy-url="<%= step_path(step) %>" >Delete step</li>
+        </ul>
+      </span>
     </div>
   </div>
   <div class="step-body">
     <div class="step-description">
-      <%= render partial: "shared/tiny_mce_editor",
+      <%= render partial: "shared/tiny_mce_editor.html.erb",
                  locals: { 
                     object: step,
                     update_url: update_description_step_path(step.id),
@@ -49,7 +58,7 @@
     >
       <% if step.checklists.any? %>
         <% step.checklists.order(:position).each do |checklist| %>
-          <%= render partial: 'steps/inline_step/checklist', locals: {
+          <%= render partial: 'steps/inline_step/checklist.html.erb', locals: {
             checklist: checklist,
             step: step
           } %>

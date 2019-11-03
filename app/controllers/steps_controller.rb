@@ -48,51 +48,13 @@ class StepsController < ApplicationController
   def create
     @step = Step.new
     @step.transaction do
-      new_step_params = step_params
-
-      # Attach newly uploaded files, and than remove their blob ids from the parameters
-      new_step_params[:assets_attributes]&.each do |key, value|
-        next unless value[:signed_blob_id]
-
-        asset = Asset.create!(created_by: current_user, last_modified_by: current_user, team: current_team)
-        asset.file.attach(value[:signed_blob_id])
-        @step.assets << asset
-        new_step_params[:assets_attributes].delete(key)
-      end
-
-      @step.assign_attributes(new_step_params)
-      # gerate a tag that replaces img tag in database
+      @step.name = "New step"
       @step.completed = false
       @step.position = @protocol.number_of_steps
       @step.protocol = @protocol
       @step.user = current_user
       @step.last_modified_by = current_user
-      @step.tables.each do |table|
-        table.created_by = current_user
-        table.team = current_team
-      end
-      # Update default checked state
-      @step.checklists.each do |checklist|
-        checklist.checklist_items.each do |checklist_item|
-          checklist_item.checked = false
-        end
-      end
-
-
-      # link tiny_mce_assets to the step
-      TinyMceAsset.update_images(@step, params[:tiny_mce_images], current_user)
-
       @step.save!
-
-      # Post process all assets
-      @step.assets.each do |asset|
-        asset.post_process_file(@protocol.team)
-      end
-
-      # link tiny_mce_assets to the step
-      TinyMceAsset.update_images(@step, params[:tiny_mce_images], current_user)
-
-      create_annotation_notifications(@step)
 
       # Generate activity
       if @protocol.in_module?
@@ -110,8 +72,7 @@ class StepsController < ApplicationController
         format.json do
           render json: {
             html: render_to_string(
-              partial: 'steps/step.html.erb',
-                       locals: { step: @step }
+              partial: "steps/inline_step.html.erb", locals: { step: @step }
             )
           },
           status: :ok
@@ -286,11 +247,7 @@ class StepsController < ApplicationController
       )
     end
 
-    if @protocol.in_module?
-      redirect_to protocols_my_module_path(@step.my_module)
-    else
-      redirect_to edit_protocol_path(@protocol)
-    end
+    render json: {status: :ok}
   end
 
   # Responds to checkbox toggling in steps view
@@ -622,39 +579,6 @@ class StepsController < ApplicationController
 
   def check_complete_and_checkbox_permissions
     render_403 unless can_complete_or_checkbox_step?(@protocol)
-  end
-
-  def step_params
-    params.require(:step).permit(
-      :name,
-      :description,
-      checklists_attributes: [
-        :id,
-        :name,
-        :_destroy,
-        checklist_items_attributes: [
-          :id,
-          :text,
-          :position,
-          :_destroy
-        ]
-      ],
-      assets_attributes: [
-        :id,
-        :_destroy,
-        :signed_blob_id
-      ],
-      tables_attributes: [
-        :id,
-        :name,
-        :contents,
-        :_destroy
-      ],
-      marvin_js_assets_attributes: %i(
-        id
-        _destroy
-      )
-    )
   end
 
   def log_activity(type_of, project = nil, message_items = {})
