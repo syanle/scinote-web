@@ -6,32 +6,34 @@
 
 // Grayscale colors
 $color-white: #fff;
-$color-alabaster: #fcfcfc;
-$color-concrete: #f2f2f2;
+$color-alabaster: $color-white;
+$color-concrete: #F0F0F6;
 $color-gainsboro: #e3e3e3;
-$color-alto: #d2d2d2;
-$color-silver: #c5c5c5;
-$color-silver-chalice: #a0a0a0;
-$color-dove-gray: #666;
-$color-emperor: #555;
-$color-black: #000;
+$color-alto: #D0D0D8;
+$color-silver: #A0a0a8;
+$color-silver-chalice: #A0a0a8;
+$color-dove-gray: #404048;
+$color-emperor: #404048;
+$color-black: #231f20;
 
 // Theme colors
 $brand-default: $color-white;
-$brand-primary: #37a0d9;
-$brand-success: #2dbe61;
-$brand-info: #5bc0de;
+$brand-primary: #104da9;
+$brand-success: $brand-primary;
+$brand-info: #104da9;
 $brand-warning: #f0ad4e;
-$brand-danger: #e54e42;
-$brand-other: #8fd13f;
-$brand-extra: #34495e;
-$brand-primary-light: #dcedf6;
-$brand-success-light: #e2eed8;
-$brand-warning-light: #fcf7e4;
-$brand-danger-light: #efdfdf;
-$brand-light-blue: #e3f1f9;
-$brand-academy: #de0170;
-$brand-academy-dark: #c60064;
+$brand-danger: #e72525;
+
+$brand-other: $brand-primary;
+$brand-extra: #07244f;
+
+$brand-primary-light: #0c3a80;
+$brand-success-light: $brand-success;
+$brand-warning-light: #fbebd3;
+$brand-danger-light: #f9c9c9;
+$brand-light-blue: #dfecff;
+$brand-academy: #a52068;
+$brand-academy-dark: #8c1b58;
 
 // MS Office colors:
 $office-ms-word: #2b579a;
