@@ -176,6 +176,10 @@ Then('I wait for {int} sec') do |sec|
   sleep sec
 end
 
+Then('I click button with icon and label {string}') do |label|
+  find('.btn', text: label).click
+end
+
 Given('default screen size') do
   page.driver.browser.manage.window.resize_to(1920, 1080) if defined?(page.driver.browser.manage)
 end
