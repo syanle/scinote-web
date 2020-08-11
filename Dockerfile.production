@@ -49,7 +49,7 @@ WORKDIR $APP_HOME
 COPY . .
 RUN rm -f $APP_HOME/config/application.yml $APP_HOME/production.env
 
-RUN DATABASE_URL=postgresql://postgres:mysecretpassword@db/scinote_production \
+RUN DATABASE_URL=postgresql://postgres@db/scinote_production \
   PAPERCLIP_HASH_SECRET=dummy \
   SECRET_KEY_BASE=dummy \
   DEFACE_ENABLED=true \
